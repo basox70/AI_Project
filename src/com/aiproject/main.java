@@ -1,4 +1,4 @@
 package com.aiproject;
 
-public class AI_Project {
+public class main {
 }
