@@ -5,15 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 public class MainWindows extends javax.swing.JFrame {
 
@@ -22,32 +14,13 @@ public class MainWindows extends javax.swing.JFrame {
     // TODO changer de fenêtre en fonction du menu
 
     private static final long serialVersionUID = 1L;
-    private String windowTitle = "Character recognition";
-    private static String chooserDialogTitle = "Select file";
-    private String noFileSelectedMessage = "No input file selected";
-
-    private static File[] fileList;
-    private String absolutePath;
-    private String destFile;
-
-    private JMenu Help;
-    private JMenu Add;
-    private JMenuItem Exit;
-    private JMenuItem AddChar;
-    private JMenuItem AddText;
-    private JMenuItem OpenFile;
-    private JMenuItem About;
-    private JMenu File;
-    private JMenuItem Settings;
-    private JMenuBar jMenuBar1;
-    private JScrollPane jScrollPane1;
-    private JLabel imageContainer;
 
     /**
      * Creates new form mainWindow
      */
     public MainWindows() {
         initComponents();
+        String windowTitle = "Character recognition";
         this.setTitle(windowTitle);
         this.setSize(500, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,69 +30,59 @@ public class MainWindows extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        imageContainer = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        File = new javax.swing.JMenu();
-        OpenFile = new javax.swing.JMenuItem();
-        Settings = new javax.swing.JMenuItem();
-        Exit = new javax.swing.JMenuItem();
-        Add = new javax.swing.JMenu();
-        AddChar = new javax.swing.JMenuItem();
-        AddText = new javax.swing.JMenuItem();
-        Help = new javax.swing.JMenu();
-        About = new javax.swing.JMenuItem();
+        JScrollPane jScrollPane1 = new JScrollPane();
+        JLabel imageContainer = new JLabel();
+        JMenuBar jMenuBar1 = new JMenuBar();
+        JMenu file = new JMenu();
+        JMenuItem openFile = new JMenuItem();
+        JMenuItem settings = new JMenuItem();
+        JMenuItem exit = new JMenuItem();
+        JMenu add = new JMenu();
+        JMenuItem addChar = new JMenuItem();
+        JMenu help = new JMenu();
+        JMenuItem about = new JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        File.setText("File");
+        file.setText("File");
 
-        OpenFile.setText("Open file");
-        OpenFile.addActionListener(this::OpenFileActionPerformed);
-        File.add(OpenFile);
-        OpenFile.getAccessibleContext().setAccessibleDescription("");
+        openFile.setText("Open file");
+        openFile.addActionListener(this::OpenFileActionPerformed);
+        file.add(openFile);
+        openFile.getAccessibleContext().setAccessibleDescription("");
 
-        Settings.setText("Settings");
+        settings.setText("Settings");
 
         // File.add(Settings);
 
-        Exit.setText("Exit");
-        Exit.addActionListener(this::ExitActionPerformed);
-        File.add(Exit);
+        exit.setText("Exit");
+        exit.addActionListener(this::ExitActionPerformed);
+        file.add(exit);
 
-        jMenuBar1.add(File);
+        jMenuBar1.add(file);
 
-        Add.setText(" Add");
+        add.setText(" Add");
 
-        AddChar.setText("Add char to DB");
-        AddChar.addActionListener(new ActionListener() {
+        addChar.setText("Add char to DB");
+        addChar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 // TODO make action
             }
         });
 
-        AddText.setText("Ajouter du texte");
-        AddText.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        add.add(addChar);
 
-            }
-        });
+        jMenuBar1.add(add);
 
-        Add.add(AddChar);
+        help.setText("Help");
 
-        // Add.add(AddText);
+        about.setText("About");
+        about.addActionListener(this::ShowHelpActionPerformed);
 
-        jMenuBar1.add(Add);
+        help.add(about);
 
-        Help.setText("Help");
-
-        About.setText("About");
-        About.addActionListener(this::ShowHelpActionPerformed);
-
-        Help.add(About);
-
-        jMenuBar1.add(Help);
+        jMenuBar1.add(help);
 
         setJMenuBar(jMenuBar1);
 
@@ -164,8 +127,6 @@ public class MainWindows extends javax.swing.JFrame {
     }
 
     private void printFile(File[] fileList) {
-
-
         //imageContainer.setIcon();
     }
 
