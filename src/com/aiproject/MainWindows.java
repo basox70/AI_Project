@@ -4,10 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -17,12 +14,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
-public class Windows extends javax.swing.JFrame {
+public class MainWindows extends javax.swing.JFrame {
 
     // TODO stocker les valeurs des poids dans la BDD pour chaque caractère
     // TODO Afficher l'image
+    // TODO changer de fenêtre en fonction du menu
 
     private static final long serialVersionUID = 1L;
     private String windowTitle = "Character recognition";
@@ -49,7 +46,7 @@ public class Windows extends javax.swing.JFrame {
     /**
      * Creates new form mainWindow
      */
-    public Windows() {
+    public MainWindows() {
         initComponents();
         this.setTitle(windowTitle);
         this.setSize(500, 400);
@@ -75,11 +72,6 @@ public class Windows extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-
-        imageContainer.setSize(50,50);
-        imageContainer.setText("Select file");
-        imageContainer.setFocusable(false);
-        // imageContainer.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         File.setText("File");
 
@@ -191,13 +183,13 @@ public class Windows extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | javax.swing.UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Windows.class.getName()).log(java.util.logging.Level.SEVERE, null,
+            java.util.logging.Logger.getLogger(MainWindows.class.getName()).log(java.util.logging.Level.SEVERE, null,
                     ex);
         }
         // </editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Windows().setVisible(true);
+                new MainWindows().setVisible(true);
             }
         });
     }
