@@ -23,6 +23,7 @@ public class Windows extends javax.swing.JFrame {
 
     // TODO stocker les valeurs des poids dans la BDD pour chaque caractère
     // TODO Afficher l'image
+
     private static final long serialVersionUID = 1L;
     private String windowTitle = "Character recognition";
     private static String chooserDialogTitle = "Select file";
