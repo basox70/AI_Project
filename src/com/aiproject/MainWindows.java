@@ -1,6 +1,6 @@
 package com.aiproject;
 
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -30,8 +30,7 @@ public class MainWindows extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        JScrollPane jScrollPane1 = new JScrollPane();
-        JLabel imageContainer = new JLabel();
+        // Menu Bar
         JMenuBar jMenuBar1 = new JMenuBar();
         JMenu file = new JMenu();
         JMenuItem openFile = new JMenuItem();
@@ -42,6 +41,12 @@ public class MainWindows extends javax.swing.JFrame {
         JMenu help = new JMenu();
         JMenuItem about = new JMenuItem();
 
+        // Tabbed Menu
+        JTabbedPane jTabbedPane1 = new JTabbedPane();
+        jTabbedPane1.addTab("Add", null, getTabAdd(),null);
+        jTabbedPane1.addTab("Recognition", null, getTabRecognition(),null);
+        
+        // Menu Item components ----
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
@@ -85,20 +90,148 @@ public class MainWindows extends javax.swing.JFrame {
         jMenuBar1.add(help);
 
         setJMenuBar(jMenuBar1);
+        setContentPane(jTabbedPane1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup().addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                        .addContainerGap()));
+                .addGroup(layout.createSequentialGroup().addContainerGap()));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
                 javax.swing.GroupLayout.Alignment.TRAILING,
-                layout.createSequentialGroup().addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                        .addContainerGap()));
-
+                layout.createSequentialGroup().addContainerGap()));
+        
         pack();
+        // -------------------------
+
+        // Tab components------------
+        JPanel pnPanel0;
+        JTabbedPane tbpTabbedPane0;
+
+        JPanel pnAdd;
+
+        JPanel pnPanel13;
+        JButton btSelectFile;
+        JLabel lbImage;
+        JLabel lbInput;
+        JTextField tfInputText;
+        JButton btInputAdd;
+
+        JPanel pnCharRecongnitionTab;
+
+        pnPanel0 = new JPanel();
+        pnPanel0.setBackground( new Color( 255,255,255 ) );
+        GridBagLayout gbPanel0 = new GridBagLayout();
+        GridBagConstraints gbcPanel0 = new GridBagConstraints();
+        pnPanel0.setLayout( gbPanel0 );
+
+        tbpTabbedPane0 = new JTabbedPane( );
+
+        pnAdd = new JPanel();
+        pnAdd.setBackground( new Color( 255,255,255 ) );
+        GridBagLayout gbAdd = new GridBagLayout();
+        GridBagConstraints gbcAdd = new GridBagConstraints();
+        pnAdd.setLayout( gbAdd );
+
+        pnPanel13 = new JPanel();
+        GridBagLayout gbPanel13 = new GridBagLayout();
+        GridBagConstraints gbcPanel13 = new GridBagConstraints();
+        pnPanel13.setLayout( gbPanel13 );
+
+        btSelectFile = new JButton( "Select File"  );
+        gbcPanel13.gridx = 2;
+        gbcPanel13.gridy = 2;
+        gbcPanel13.gridwidth = 1;
+        gbcPanel13.gridheight = 1;
+        gbcPanel13.fill = GridBagConstraints.BOTH;
+        gbcPanel13.weightx = 1;
+        gbcPanel13.weighty = 0;
+        gbcPanel13.anchor = GridBagConstraints.NORTH;
+        gbPanel13.setConstraints( btSelectFile, gbcPanel13 );
+        pnPanel13.add( btSelectFile );
+
+        lbImage = new JLabel( ""  );
+        gbcPanel13.gridx = 2;
+        gbcPanel13.gridy = 3;
+        gbcPanel13.gridwidth = 1;
+        gbcPanel13.gridheight = 3;
+        gbcPanel13.fill = GridBagConstraints.BOTH;
+        gbcPanel13.weightx = 1;
+        gbcPanel13.weighty = 1;
+        gbcPanel13.anchor = GridBagConstraints.NORTH;
+        gbPanel13.setConstraints( lbImage, gbcPanel13 );
+        pnPanel13.add( lbImage );
+
+        lbInput = new JLabel( "Charatcter to add"  );
+        gbcPanel13.gridx = 7;
+        gbcPanel13.gridy = 4;
+        gbcPanel13.gridwidth = 2;
+        gbcPanel13.gridheight = 1;
+        gbcPanel13.fill = GridBagConstraints.VERTICAL;
+        gbcPanel13.weightx = 1;
+        gbcPanel13.weighty = 1;
+        gbcPanel13.anchor = GridBagConstraints.NORTH;
+        gbPanel13.setConstraints( lbInput, gbcPanel13 );
+        pnPanel13.add( lbInput );
+
+        tfInputText = new JTextField( );
+        gbcPanel13.gridx = 7;
+        gbcPanel13.gridy = 5;
+        gbcPanel13.gridwidth = 1;
+        gbcPanel13.gridheight = 1;
+        gbcPanel13.fill = GridBagConstraints.BOTH;
+        gbcPanel13.weightx = 1;
+        gbcPanel13.weighty = 0;
+        gbcPanel13.anchor = GridBagConstraints.NORTH;
+        gbPanel13.setConstraints( tfInputText, gbcPanel13 );
+        pnPanel13.add( tfInputText );
+
+        btInputAdd = new JButton( "Add"  );
+        gbcPanel13.gridx = 8;
+        gbcPanel13.gridy = 5;
+        gbcPanel13.gridwidth = 1;
+        gbcPanel13.gridheight = 1;
+        gbcPanel13.fill = GridBagConstraints.BOTH;
+        gbcPanel13.weightx = 1;
+        gbcPanel13.weighty = 0;
+        gbcPanel13.anchor = GridBagConstraints.NORTH;
+        gbPanel13.setConstraints( btInputAdd, gbcPanel13 );
+        pnPanel13.add( btInputAdd );
+        gbcAdd.gridx = 0;
+        gbcAdd.gridy = 0;
+        gbcAdd.gridwidth = 28;
+        gbcAdd.gridheight = 13;
+        gbcAdd.fill = GridBagConstraints.BOTH;
+        gbcAdd.weightx = 1;
+        gbcAdd.weighty = 0;
+        gbcAdd.anchor = GridBagConstraints.NORTH;
+        gbAdd.setConstraints( pnPanel13, gbcAdd );
+        pnAdd.add( pnPanel13 );
+        tbpTabbedPane0.addTab("Add",pnAdd);
+
+        pnCharRecongnitionTab = new JPanel();
+        GridBagLayout gbCharRecongnitionTab = new GridBagLayout();
+        GridBagConstraints gbcCharRecongnitionTab = new GridBagConstraints();
+        pnCharRecongnitionTab.setLayout( gbCharRecongnitionTab );
+        tbpTabbedPane0.addTab("Char recognition",pnCharRecongnitionTab);
+        gbcPanel0.gridx = 0;
+        gbcPanel0.gridy = 0;
+        gbcPanel0.gridwidth = 1;
+        gbcPanel0.gridheight = 1;
+        gbcPanel0.fill = GridBagConstraints.BOTH;
+        gbcPanel0.weightx = 1;
+        gbcPanel0.weighty = 1;
+        gbcPanel0.anchor = GridBagConstraints.NORTH;
+        gbPanel0.setConstraints( tbpTabbedPane0, gbcPanel0 );
+        pnPanel0.add( tbpTabbedPane0 );
+        // --------------------------
+    }
+
+    private Component getTabRecognition() {
+        return null;
+    }
+
+    private Component getTabAdd() {
+        return null;
     }
 
     private void ShowHelpActionPerformed(ActionEvent evt) {
@@ -153,6 +286,7 @@ public class MainWindows extends javax.swing.JFrame {
                 new MainWindows().setVisible(true);
             }
         });
+
     }
 
 }
