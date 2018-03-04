@@ -7,7 +7,7 @@ import java.io.File;
 
 import javax.swing.*;
 
-public class MainWindows extends javax.swing.JFrame {
+public class MainWindows extends JFrame {
 
     // TODO stocker les valeurs des poids dans la BDD pour chaque caractère
     // TODO Afficher l'image
@@ -15,20 +15,22 @@ public class MainWindows extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
 
+    private JPanel container = new JPanel();
+    private JPanel panneau1 = new JPanel();
+    private JPanel panneau2 = new JPanel();
+    private JPanel panneau3 = new JPanel();
+    private JPanel panneau4 = new JPanel();
+
     /**
      * Creates new form mainWindow
      */
     public MainWindows() {
-        initComponents();
-        String windowTitle = "Character recognition";
-        this.setTitle(windowTitle);
+        this.setTitle("Character recognition");
         this.setSize(500, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-    }
-
-    private void initComponents() {
+        this.setResizable(true);
 
         // Menu Bar
         JMenuBar jMenuBar1 = new JMenuBar();
@@ -36,24 +38,17 @@ public class MainWindows extends javax.swing.JFrame {
         JMenuItem openFile = new JMenuItem();
         JMenuItem settings = new JMenuItem();
         JMenuItem exit = new JMenuItem();
-        JMenu add = new JMenu();
-        JMenuItem addChar = new JMenuItem();
         JMenu help = new JMenu();
         JMenuItem about = new JMenuItem();
 
         // Tabbed Menu
         JTabbedPane jTabbedPane1 = new JTabbedPane();
-        jTabbedPane1.addTab("Add", null, getTabAdd(),null);
-        jTabbedPane1.addTab("Recognition", null, getTabRecognition(),null);
+        jTabbedPane1.addTab("Add", null, null,null);
+        jTabbedPane1.addTab("Recognition", null, null,null);
         
-        // Menu Item components ----
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
-
         file.setText("File");
 
         openFile.setText("Open file");
-        openFile.addActionListener(this::OpenFileActionPerformed);
         file.add(openFile);
         openFile.getAccessibleContext().setAccessibleDescription("");
 
@@ -66,19 +61,6 @@ public class MainWindows extends javax.swing.JFrame {
         file.add(exit);
 
         jMenuBar1.add(file);
-
-        add.setText(" Add");
-
-        addChar.setText("Add char to DB");
-        addChar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                // TODO make action
-            }
-        });
-
-        add.add(addChar);
-
-        jMenuBar1.add(add);
 
         help.setText("Help");
 
@@ -101,137 +83,7 @@ public class MainWindows extends javax.swing.JFrame {
                 layout.createSequentialGroup().addContainerGap()));
         
         pack();
-        // -------------------------
-
-        // Tab components------------
-        JPanel pnPanel0;
-        JTabbedPane tbpTabbedPane0;
-
-        JPanel pnAdd;
-
-        JPanel pnPanel13;
-        JButton btSelectFile;
-        JLabel lbImage;
-        JLabel lbInput;
-        JTextField tfInputText;
-        JButton btInputAdd;
-
-        JPanel pnCharRecongnitionTab;
-
-        pnPanel0 = new JPanel();
-        pnPanel0.setBackground( new Color( 255,255,255 ) );
-        GridBagLayout gbPanel0 = new GridBagLayout();
-        GridBagConstraints gbcPanel0 = new GridBagConstraints();
-        pnPanel0.setLayout( gbPanel0 );
-
-        tbpTabbedPane0 = new JTabbedPane( );
-
-        pnAdd = new JPanel();
-        pnAdd.setBackground( new Color( 255,255,255 ) );
-        GridBagLayout gbAdd = new GridBagLayout();
-        GridBagConstraints gbcAdd = new GridBagConstraints();
-        pnAdd.setLayout( gbAdd );
-
-        pnPanel13 = new JPanel();
-        GridBagLayout gbPanel13 = new GridBagLayout();
-        GridBagConstraints gbcPanel13 = new GridBagConstraints();
-        pnPanel13.setLayout( gbPanel13 );
-
-        btSelectFile = new JButton( "Select File"  );
-        gbcPanel13.gridx = 2;
-        gbcPanel13.gridy = 2;
-        gbcPanel13.gridwidth = 1;
-        gbcPanel13.gridheight = 1;
-        gbcPanel13.fill = GridBagConstraints.BOTH;
-        gbcPanel13.weightx = 1;
-        gbcPanel13.weighty = 0;
-        gbcPanel13.anchor = GridBagConstraints.NORTH;
-        gbPanel13.setConstraints( btSelectFile, gbcPanel13 );
-        pnPanel13.add( btSelectFile );
-
-        lbImage = new JLabel( ""  );
-        gbcPanel13.gridx = 2;
-        gbcPanel13.gridy = 3;
-        gbcPanel13.gridwidth = 1;
-        gbcPanel13.gridheight = 3;
-        gbcPanel13.fill = GridBagConstraints.BOTH;
-        gbcPanel13.weightx = 1;
-        gbcPanel13.weighty = 1;
-        gbcPanel13.anchor = GridBagConstraints.NORTH;
-        gbPanel13.setConstraints( lbImage, gbcPanel13 );
-        pnPanel13.add( lbImage );
-
-        lbInput = new JLabel( "Charatcter to add"  );
-        gbcPanel13.gridx = 7;
-        gbcPanel13.gridy = 4;
-        gbcPanel13.gridwidth = 2;
-        gbcPanel13.gridheight = 1;
-        gbcPanel13.fill = GridBagConstraints.VERTICAL;
-        gbcPanel13.weightx = 1;
-        gbcPanel13.weighty = 1;
-        gbcPanel13.anchor = GridBagConstraints.NORTH;
-        gbPanel13.setConstraints( lbInput, gbcPanel13 );
-        pnPanel13.add( lbInput );
-
-        tfInputText = new JTextField( );
-        gbcPanel13.gridx = 7;
-        gbcPanel13.gridy = 5;
-        gbcPanel13.gridwidth = 1;
-        gbcPanel13.gridheight = 1;
-        gbcPanel13.fill = GridBagConstraints.BOTH;
-        gbcPanel13.weightx = 1;
-        gbcPanel13.weighty = 0;
-        gbcPanel13.anchor = GridBagConstraints.NORTH;
-        gbPanel13.setConstraints( tfInputText, gbcPanel13 );
-        pnPanel13.add( tfInputText );
-
-        btInputAdd = new JButton( "Add"  );
-        gbcPanel13.gridx = 8;
-        gbcPanel13.gridy = 5;
-        gbcPanel13.gridwidth = 1;
-        gbcPanel13.gridheight = 1;
-        gbcPanel13.fill = GridBagConstraints.BOTH;
-        gbcPanel13.weightx = 1;
-        gbcPanel13.weighty = 0;
-        gbcPanel13.anchor = GridBagConstraints.NORTH;
-        gbPanel13.setConstraints( btInputAdd, gbcPanel13 );
-        pnPanel13.add( btInputAdd );
-        gbcAdd.gridx = 0;
-        gbcAdd.gridy = 0;
-        gbcAdd.gridwidth = 28;
-        gbcAdd.gridheight = 13;
-        gbcAdd.fill = GridBagConstraints.BOTH;
-        gbcAdd.weightx = 1;
-        gbcAdd.weighty = 0;
-        gbcAdd.anchor = GridBagConstraints.NORTH;
-        gbAdd.setConstraints( pnPanel13, gbcAdd );
-        pnAdd.add( pnPanel13 );
-        tbpTabbedPane0.addTab("Add",pnAdd);
-
-        pnCharRecongnitionTab = new JPanel();
-        GridBagLayout gbCharRecongnitionTab = new GridBagLayout();
-        GridBagConstraints gbcCharRecongnitionTab = new GridBagConstraints();
-        pnCharRecongnitionTab.setLayout( gbCharRecongnitionTab );
-        tbpTabbedPane0.addTab("Char recognition",pnCharRecongnitionTab);
-        gbcPanel0.gridx = 0;
-        gbcPanel0.gridy = 0;
-        gbcPanel0.gridwidth = 1;
-        gbcPanel0.gridheight = 1;
-        gbcPanel0.fill = GridBagConstraints.BOTH;
-        gbcPanel0.weightx = 1;
-        gbcPanel0.weighty = 1;
-        gbcPanel0.anchor = GridBagConstraints.NORTH;
-        gbPanel0.setConstraints( tbpTabbedPane0, gbcPanel0 );
-        pnPanel0.add( tbpTabbedPane0 );
-        // --------------------------
-    }
-
-    private Component getTabRecognition() {
-        return null;
-    }
-
-    private Component getTabAdd() {
-        return null;
+        // ------------------------
     }
 
     private void ShowHelpActionPerformed(ActionEvent evt) {
@@ -251,16 +103,8 @@ public class MainWindows extends javax.swing.JFrame {
                 JOptionPane.PLAIN_MESSAGE);
     }
 
-    private void OpenFileActionPerformed(ActionEvent evt) {
-        //displayBrowserWindow();
-    }
-
     private void ExitActionPerformed(ActionEvent evt) {
         System.exit(0);
-    }
-
-    private void printFile(File[] fileList) {
-        //imageContainer.setIcon();
     }
 
     /**
@@ -270,22 +114,18 @@ public class MainWindows extends javax.swing.JFrame {
     public static void main(String args[]) {
 
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | javax.swing.UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainWindows.class.getName()).log(java.util.logging.Level.SEVERE, null,
-                    ex);
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); //Theme windows
+        } catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
         }
-        // </editor-fold>
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainWindows().setVisible(true);
             }
         });
+        //MainWindows fenetre = new MainWindows();
 
     }
 
