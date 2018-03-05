@@ -2,7 +2,7 @@ package com.aiproject;
 
 import javax.swing.*;
 
-public class Add {
+public class AddChar {
     private JButton homeButton;
     private JButton addButton;
     private JButton decodeButton;
