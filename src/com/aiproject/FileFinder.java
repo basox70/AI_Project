@@ -1,6 +1,7 @@
 package com.aiproject;
 
 import javax.swing.*;
+import javax.swing.filechooser.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -8,24 +9,27 @@ import java.io.FilenameFilter;
 
 public class FileFinder {
 
-    public FileFinder() {
-        JButton button = new JButton("Choisir");
-        JTextField field1 = new JTextField("Mon PDF");
-        JTextField field2 = new JTextField("C:\\");
+    public String FileFinder(){
+        return FileFinder("c:\\");
+
+    }
+
+    public String FileFinder(String path) {
+        JButton button = new JButton("Choose");
+        JTextField field2 = new JTextField(path);
         JPanel panel = new JPanel(new GridLayout(0, 2));
-        panel.add(new JLabel("Nom du fichier (.pdf):"));
-        panel.add(field1);
-        panel.add(new JLabel("Dossier de destination :"));
+        panel.add(new JLabel("Image file:"));
         panel.add(button);
         button.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser chooser = new JFileChooser();
-                String tmp = field2.getText();
+                String tmp;
+                tmp = field2.getText();
                 chooser.setCurrentDirectory(new java.io.File(field2.getText()));
                 chooser.setDialogTitle("Select image file");
-                //chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                chooser.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter image =  new FileNameExtensionFilter("Image", new String[] {"jpg", "png", "jpeg"});
+                chooser.addChoosableFileFilter(image);
+                chooser.setAcceptAllFileFilterUsed(true);
 
                 if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                     field2.setText(chooser.getSelectedFile().getAbsolutePath());
@@ -36,10 +40,10 @@ public class FileFinder {
         });
         field2.setColumns(2);
         panel.add(field2);
-        int result = JOptionPane.showConfirmDialog(null, panel, "Dossier de fusion", JOptionPane.OK_CANCEL_OPTION,
+        int result = JOptionPane.showConfirmDialog(null, panel, "Select image file", JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            System.out.println(field1.getText() + "\\" + field2.getText());
+            System.out.println(field2.getText());
             //destFile = field2.getText() + "\\" + field1.getText();
             //System.out.println(destFile + ".pdf");
             //try {
@@ -51,6 +55,7 @@ public class FileFinder {
         } else {
             System.out.println("Cancelled");
         }
+        return field2.getText();
     }
     public static File[] find (String path) {
         File dir = new File(path);

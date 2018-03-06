@@ -310,8 +310,15 @@ public class MainWindow extends JFrame {
 
     private void InputFileActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        new FileFinder();
-        new FileFinder();
+        String InFileName;
+        if (InputFileName.getText().equals("")) {
+            InFileName = new FileFinder().FileFinder(InputFileName.getText());
+        }
+        else {
+            InFileName = new FileFinder().FileFinder();
+        }
+        System.out.println("InputFile : "+InFileName);
+        InputFileName.setText(InFileName);
     }
 
     private void AddInputActionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,6 +327,15 @@ public class MainWindow extends JFrame {
 
     private void RecognitionFileActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        String OutFileName;
+        if (RecognitionFileName.getText().equals("")) {
+            OutFileName = new FileFinder().FileFinder(RecognitionFileName.getText());
+        }
+        else {
+            OutFileName = new FileFinder().FileFinder();
+        }
+        System.out.println("OutFileName : "+OutFileName);
+        RecognitionFileName.setText(OutFileName);
     }
 
     private void RecognizeCharActionPerformed(java.awt.event.ActionEvent evt) {
