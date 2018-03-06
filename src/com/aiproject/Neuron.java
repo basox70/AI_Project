@@ -1,6 +1,6 @@
 package com.aiproject;
 
-public class neuron {
+public class Neuron {
 
     public double neuron (double [] inputs, double [] weights){
         double  result = inputs[0]*weights[0] + inputs[1]*weights[1] + 1*weights[2];

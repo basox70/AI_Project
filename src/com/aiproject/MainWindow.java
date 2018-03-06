@@ -312,34 +312,36 @@ public class MainWindow extends JFrame {
         // TODO add your handling code here:
         String InFileName;
         if (InputFileName.getText().equals("")) {
-            InFileName = new FileFinder().FileFinder(InputFileName.getText());
-        }
-        else {
             InFileName = new FileFinder().FileFinder();
         }
-        System.out.println("InputFile : "+InFileName);
+        else {
+            InFileName = new FileFinder().FileFinder(InputFileName.getText());
+        }
+        System.out.println("InputFile: "+InFileName);
         InputFileName.setText(InFileName);
     }
 
     private void AddInputActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        new AddChar(InputFileName.getText(), InputChar.getText());
     }
 
     private void RecognitionFileActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        String OutFileName;
+        String ReconFileName;
         if (RecognitionFileName.getText().equals("")) {
-            OutFileName = new FileFinder().FileFinder(RecognitionFileName.getText());
+            ReconFileName = new FileFinder().FileFinder();
         }
         else {
-            OutFileName = new FileFinder().FileFinder();
+            ReconFileName = new FileFinder().FileFinder(RecognitionFileName.getText());
         }
-        System.out.println("OutFileName : "+OutFileName);
-        RecognitionFileName.setText(OutFileName);
+        System.out.println("OutFileName: "+ReconFileName);
+        RecognitionFileName.setText(ReconFileName);
     }
 
     private void RecognizeCharActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        new Decode(RecognitionFileName.getText());
     }
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,11 +353,6 @@ public class MainWindow extends JFrame {
      *            the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
         try {
             /*for (LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()){
                 System.out.println(info.getName());
@@ -372,12 +369,10 @@ public class MainWindow extends JFrame {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
-
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
