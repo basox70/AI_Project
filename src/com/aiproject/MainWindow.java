@@ -1,8 +1,12 @@
 package com.aiproject;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class MainWindow extends JFrame {
 
@@ -21,12 +25,14 @@ public class MainWindow extends JFrame {
     private JButton InputFile;
     private JTextField InputFileName;
     private JPanel InputImage;
+    private Canvas CanvasInputImage;
     private JLabel LabelInputChar;
     private JLabel LabelOutputChar;
     private JTextField OutputChar;
     private JButton RecognitionFile;
     private JTextField RecognitionFileName;
     private JPanel RecognitionImage;
+    private Canvas CanvasRecognitionImage;
     private JButton RecognizeChar;
     private JMenuItem Settings;
     private JMenu jMenu3;
@@ -48,6 +54,7 @@ public class MainWindow extends JFrame {
         InputFile = new javax.swing.JButton();
         InputFileName = new javax.swing.JTextField();
         InputImage = new javax.swing.JPanel();
+        CanvasInputImage = new java.awt.Canvas();
         LabelInputChar = new javax.swing.JLabel();
         InputChar = new javax.swing.JTextField();
         AddInput = new javax.swing.JButton();
@@ -308,7 +315,7 @@ public class MainWindow extends JFrame {
                 JOptionPane.PLAIN_MESSAGE);
     }
 
-    private void InputFileActionPerformed(java.awt.event.ActionEvent evt) {
+    private void InputFileActionPerformed(java.awt.event.ActionEvent evt){
         // TODO add your handling code here:
         String InFileName;
         if (InputFileName.getText().equals("")) {
@@ -319,6 +326,19 @@ public class MainWindow extends JFrame {
         }
         System.out.println("InputFile: "+InFileName);
         InputFileName.setText(InFileName);
+
+        try {
+            // https://www.developpez.net/forums/d865718/java/interfaces-graphiques-java/debuter/afficher-image-canvas/
+            BufferedImage image = ImageIO.read(new File(InFileName));
+            //Image image = tk.getImage(InFileName);
+            CanvasInputImage.setSize(image.getWidth(),image.getHeight());
+            System.out.println(image.getWidth());
+            System.out.println(image.getHeight());
+            System.out.println(CanvasInputImage.getSize());
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void AddInputActionPerformed(java.awt.event.ActionEvent evt) {
