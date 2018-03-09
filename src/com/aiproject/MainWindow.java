@@ -3,6 +3,7 @@ package com.aiproject;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -317,15 +318,24 @@ public class MainWindow extends JFrame {
 
     private void InputFileActionPerformed(java.awt.event.ActionEvent evt){
         // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
         String InFileName;
-        if (InputFileName.getText().equals("")) {
-            InFileName = new FileFinder().FileFinder();
+        InFileName = InputFileName.getText();
+        chooser.setCurrentDirectory(new java.io.File(InputFileName.getText()));
+        chooser.setDialogTitle("Select image file");
+        FileNameExtensionFilter imageExt = new FileNameExtensionFilter("Image", new String[]{"jpg", "png", "jpeg"});
+        chooser.addChoosableFileFilter(imageExt);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            InFileName = chooser.getSelectedFile().getAbsolutePath();
+            InputFileName.setText(InFileName);
+        } else {
+            InputFileName.setText(InFileName);
         }
-        else {
-            InFileName = new FileFinder().FileFinder(InputFileName.getText());
-        }
+
         System.out.println("InputFile: "+InFileName);
-        InputFileName.setText(InFileName);
+        //InputFileName.setText(InFileName);
 
         try {
             // https://www.developpez.net/forums/d865718/java/interfaces-graphiques-java/debuter/afficher-image-canvas/
@@ -348,15 +358,23 @@ public class MainWindow extends JFrame {
 
     private void RecognitionFileActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
         String ReconFileName;
-        if (RecognitionFileName.getText().equals("")) {
-            ReconFileName = new FileFinder().FileFinder();
+        ReconFileName = RecognitionFileName.getText();
+        chooser.setCurrentDirectory(new java.io.File(RecognitionFileName.getText()));
+        chooser.setDialogTitle("Select image file");
+        FileNameExtensionFilter imageExt = new FileNameExtensionFilter("Image", new String[]{"jpg", "png", "jpeg"});
+        chooser.addChoosableFileFilter(imageExt);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            ReconFileName = chooser.getSelectedFile().getAbsolutePath();
+            RecognitionFileName.setText(ReconFileName);
+        } else {
+            RecognitionFileName.setText(ReconFileName);
         }
-        else {
-            ReconFileName = new FileFinder().FileFinder(RecognitionFileName.getText());
-        }
+
         System.out.println("OutFileName: "+ReconFileName);
-        RecognitionFileName.setText(ReconFileName);
     }
 
     private void RecognizeCharActionPerformed(java.awt.event.ActionEvent evt) {
