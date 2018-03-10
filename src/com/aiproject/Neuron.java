@@ -15,4 +15,9 @@ public class Neuron {
         return n;
     }
 
+    public double newWeight (double output){
+
+        return 0;
+    }
+
 }
