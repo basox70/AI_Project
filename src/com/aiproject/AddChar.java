@@ -1,7 +1,5 @@
 package com.aiproject;
 
-import com.sun.javafx.collections.MappingChange;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -36,6 +34,10 @@ public class AddChar {
                 e.printStackTrace();
             }
 
+            for (int i = 0; i < nbNeurons; i++) {
+
+            }
+
             neuronCalculation();
             /*getWeights();
             TestInput[0]=0.8;
@@ -45,7 +47,7 @@ public class AddChar {
             TestWeight[1]=0.8;
             TestWeight[2]=0.2;
 
-            Neuron neuron = new Neuron();
+            HiddenNeuron neuron = new HiddenNeuron();
             neuron.neuron(TestInput,TestWeight);
             neuron.neuron(inputs,weights);
             System.out.println(neuron);*/
@@ -102,7 +104,7 @@ public class AddChar {
         * I*inputs  ----> N*neurons ----> 1*output
         */
         double n;
-        Neuron neuron = new Neuron();
+        HiddenNeuron neuron = new HiddenNeuron();
         double[] neuronValue = new double[nbNeurons];
         for (int i = 0 ; i < nbNeurons ; i++) {
             getWeights(nbPixels);
@@ -115,7 +117,7 @@ public class AddChar {
         // output calculation
         double output;
         getWeights(nbNeurons);
-        output = neuron.neuron(neuronValue,weights);
+        output = neuron.neuron.neuron(neuronValue,weights);
         System.out.println("output: " + output);
     }
 
