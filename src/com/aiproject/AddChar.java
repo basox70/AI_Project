@@ -4,8 +4,11 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+
+import static java.lang.System.out;
 
 public class AddChar {
 
@@ -22,11 +25,11 @@ public class AddChar {
 
     public AddChar(String image, String character){
         if (image.length() == 0 && character.length() == 0){
-            System.out.println("Impossible to add unknown char with unknown image");
+            out.println("Impossible to add unknown char with unknown image");
         } else if (character.length() == 0){
-            System.out.println("Impossible to add unknown char");
+            out.println("Impossible to add unknown char");
         } else if (image.length() == 0){
-            System.out.println("Impossible to add char with unknown image");
+            out.println("Impossible to add char with unknown image");
         } else {
             try {
                 getInputs(image);
@@ -70,7 +73,7 @@ public class AddChar {
                 int red = (clr & 0x00ff0000) >> 16;
                 int green = (clr & 0x0000ff00) >> 8;
                 int blue = clr & 0x000000ff;
-                System.out.println("RGB = (" + red + "," + green + ","  + blue + ") | " + clr);
+                out.println("RGB = (" + red + "," + green + ","  + blue + ") | " + clr);
                 if (red*green*blue > 350000) {
                     img = img + "0";
                     this.inputs[counter] = 0;
@@ -83,7 +86,7 @@ public class AddChar {
             img = img + "\n";
         }
 
-        System.out.println(img);
+        out.println(img);
         this.nbPixels = nbPixels;
     }
 
@@ -104,21 +107,22 @@ public class AddChar {
         * I*inputs  ----> N*neurons ----> 1*output
         */
         double n;
-        HiddenNeuron neuron = new HiddenNeuron();
+
+        Neuron neuron = new Neuron();
         double[] neuronValue = new double[nbNeurons];
         for (int i = 0 ; i < nbNeurons ; i++) {
             getWeights(nbPixels);
             n = neuron.neuron(inputs,weights);
             neuronValue[i] = n;
             neurons.put(n,weights);
-            System.out.println(neurons.size());
+            out.println(neurons.size());
         }
 
         // output calculation
         double output;
         getWeights(nbNeurons);
-        output = neuron.neuron.neuron(neuronValue,weights);
-        System.out.println("output: " + output);
+        output = neuron.neuron(neuronValue,weights);
+        out.println("output: " + output);
     }
 
 }
