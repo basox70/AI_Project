@@ -21,15 +21,19 @@ public class AddChar {
     public double [] weights;
     public int nbPixels;
     private Map<Double,double[]> neurons = new HashMap<>();
+    private String charToAdd;
     private int nbNeurons = 200;
 
     public AddChar(String image, String character){
+        this.charToAdd = character;
         if (image.length() == 0 && character.length() == 0){
             out.println("Impossible to add unknown char with unknown image");
         } else if (character.length() == 0){
             out.println("Impossible to add unknown char");
         } else if (image.length() == 0){
             out.println("Impossible to add char with unknown image");
+        } else if (character.length() > 1) {
+            out.println("Impossible to add string, only char accepted");
         } else {
             try {
                 getInputs(image);
@@ -114,15 +118,22 @@ public class AddChar {
             getWeights(nbPixels);
             n = neuron.neuron(inputs,weights);
             neuronValue[i] = n;
-            neurons.put(n,weights);
-            out.println(neurons.size());
+            neurons.put(n, weights);
+            /*for (int y = 0; y < weights.length; y++) {
+                neurons.get(n).add(weights[y]);
+            }*/
+            out.println(neurons.size() + " | " + neurons.get(n));
         }
+
+        RWDatas data = new RWDatas();
 
         // output calculation
         double output;
         getWeights(nbNeurons);
         output = neuron.neuron(neuronValue,weights);
         out.println("output: " + output);
+
+        data.toJSON(this.charToAdd,neurons);
     }
 
 }
