@@ -1,14 +1,14 @@
 package com.aiproject;
 
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -21,26 +21,28 @@ public class RWDatas {
         verifyFile();
         try {
             // TODO output weights in json
-            Map<String, Map> test = new HashMap<>();
-            test.put(character,map);
-            Object transition = test;
-            JSONValue obj = new JSONValue();
-            String output = obj.toJSONString(map);
-            String output2 = obj.toJSONString(test);
             Iterator<Double> iter = map.keySet().iterator();
-            System.out.println("output3");
+            JSONObject JSONneurons = new JSONObject();
+            JSONArray weights = new JSONArray();
             while (iter.hasNext()) {
-                Double arrayName = iter.next();
-                double[] array;
-                array = map.get(arrayName);
-
-                String output3 = obj.toJSONString(array);
-                System.out.println(output3);
+                double key = iter.next();
+                double[] array = map.get(key);
+                for (int i = 0; i < array.length; i++) {
+                    weights.add(array[i]);
+                }
+                JSONneurons.put(key,weights);
             }
-            System.out.println("output");
-            System.out.println(output);
-            System.out.println("output2");
-            System.out.println(output2);
+            /*JSONneurons.put("key1","test1");
+            JSONneurons.put("key1","test2");
+            JSONneurons.put("key1","test3");
+            JSONneurons.put("key2","test1");
+            JSONneurons.put("key3","test2");
+            JSONneurons.put("key4","test3");*/
+            //System.out.println(JSONneurons);
+            FileWriter dataFile = new FileWriter(fileName);
+            dataFile.write(JSONneurons.toJSONString());
+            dataFile.flush();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
