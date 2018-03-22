@@ -22,7 +22,7 @@ public class AddChar {
     public int nbPixels;
     private Map<Double,double[]> neurons = new HashMap<>();
     private String charToAdd;
-    private int nbNeurons = 200;
+    private int nbNeurons = 20;
 
     public AddChar(String image, String character){
         this.charToAdd = character;
@@ -133,7 +133,7 @@ public class AddChar {
         output = neuron.neuron(neuronValue,weights);
         out.println("output: " + output);
 
-        data.toJSON(this.charToAdd,neurons);
+        data.toJSON(this.charToAdd,inputs,neurons);
     }
 
 }
