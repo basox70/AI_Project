@@ -7,7 +7,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 public class MainWindow extends JFrame {
 
@@ -36,9 +35,12 @@ public class MainWindow extends JFrame {
     private Canvas CanvasRecognitionImage;
     private JButton RecognizeChar;
     private JMenuItem Settings;
-    private JMenu jMenu3;
+    private JMenu File;
     private JMenuBar jMenuBar1;
     private JTabbedPane jTabbedPane1;
+    private javax.swing.JMenuItem Reset_DB;
+    private javax.swing.JMenu Options;
+
     /**
      * Creates new form mainWindow
      */
@@ -67,9 +69,11 @@ public class MainWindow extends JFrame {
         OutputChar = new javax.swing.JTextField();
         RecognizeChar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
+        File = new javax.swing.JMenu();
         Settings = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
+        Options = new javax.swing.JMenu();
+        Reset_DB = new javax.swing.JMenuItem();
         Help = new javax.swing.JMenu();
         About = new javax.swing.JMenuItem();
 
@@ -248,7 +252,7 @@ public class MainWindow extends JFrame {
 
         jTabbedPane1.addTab("Char Recognition", CharRecognition);
 
-        jMenu3.setText("File");
+        File.setText("File");
 
         Settings.setText("Settings");
         Settings.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +260,7 @@ public class MainWindow extends JFrame {
                 SettingsActionPerformed(evt);
             }
         });
-        jMenu3.add(Settings);
+        File.add(Settings);
 
         Exit.setText("Exit");
         Exit.addActionListener(new java.awt.event.ActionListener() {
@@ -264,9 +268,21 @@ public class MainWindow extends JFrame {
                 ExitActionPerformed(evt);
             }
         });
-        jMenu3.add(Exit);
+        File.add(Exit);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(File);
+
+        Options.setText("Options");
+
+        Reset_DB.setText("Reset DB");
+        Reset_DB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Reset_DBActionPerformed(evt);
+            }
+        });
+        Options.add(Reset_DB);
+
+        jMenuBar1.add(Options);
 
         Help.setText("Help");
 
@@ -383,6 +399,10 @@ public class MainWindow extends JFrame {
     }
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void Reset_DBActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
