@@ -30,43 +30,6 @@ public class RWDatas {
             // TODO output weights in json
 
             FileWriter dataFile = new FileWriter(fileName);
-
-            Map<Character, Object> data = new HashMap<Character, Object>() {{
-                put(character.charAt(0), new Object[]{new HashMap<String, Object[]>() {
-                    {
-                        put("inputs", new Object[]{new HashMap<Integer, Double>() {
-                            {
-                                for (int i = 0; i < inputs.length; i++) {
-                                    put(i, inputs[i]);
-                                }
-                            }
-                        }});
-                        put("weights", new Object[]{new HashMap<String, Object[]>() {
-                            {
-                                put("neurons", new Object[]{new HashMap<Double, Object[]>() {
-                                    {
-                                        Iterator<Double> iter = map.keySet().iterator();
-                                        while (iter.hasNext()) {
-                                            double key = iter.next();
-                                            put(key, new Object[]{new HashMap<Integer, Double>() {
-                                                {
-                                                    double[] array = map.get(key);
-                                                    for (int i = 0; i < array.length; i++) {
-                                                        put(i,array[i]);
-                                                    }
-                                                }}
-                                            });
-                                        }
-                                    }}
-                                });
-                            }}
-                        });
-                    }}
-                });
-            }};
-            JSONSerializer json = new JSONSerializer();
-            json.prettyPrint(true);
-            dataFile.write(json.deepSerialize(data));
             dataFile.close();
 
         } catch (Exception e) {
@@ -84,10 +47,7 @@ public class RWDatas {
         verifyDB();
         try {
             database = new FileReader(fileName);
-            JSONDeserializer parser = new JSONDeserializer();
-            Map<Character,Map<String,Map<Integer,Double>>> obj = new JSONDeserializer<Map<Character,Map<String,Map<Integer,Double>>>>().deserialize(database);
-            System.out.println(obj);
-            return obj;
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,6 +66,7 @@ public class RWDatas {
                 if (conn != null) {
                     DatabaseMetaData meta = conn.getMetaData();
                     System.out.println("The driver name is " + meta.getDriverName());
+                    initDB();
                     System.out.println("A new database has been created.");
                 }
             } catch (Exception e1) {
@@ -115,4 +76,9 @@ public class RWDatas {
         }
     }
 
+    private void initDB() {
+        File file = new File(fileName);
+        System.out.println("Used Space : " + file.getTotalSpace());
+
+    }
 }

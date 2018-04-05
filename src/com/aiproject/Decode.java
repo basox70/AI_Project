@@ -9,7 +9,7 @@ public class Decode {
 
     public Decode(String image){
         RWDatas data = new RWDatas();
-        data.fromJSON();
+        data.fromDB();
         System.out.println(image);
     }
 }
