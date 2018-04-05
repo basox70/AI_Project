@@ -17,7 +17,7 @@ public class AddChar {
     private double [] TestWeight = new double[3];
     private int TestNbNeuron = 2;
 
-    public double [] inputs;
+    public Integer [] inputs;
     public double [] weights;
     public int nbPixels;
     private Map<Double,double[]> neurons = new HashMap<>();
@@ -66,7 +66,7 @@ public class AddChar {
     private void getInputs(String image) throws IOException {
         BufferedImage picture = ImageIO.read(new File(image));
         int nbPixels = picture.getWidth()*picture.getHeight();
-        this.inputs = new double[nbPixels];
+        this.inputs = new Integer[nbPixels];
 
         String img = "";
         // Getting pixel color by position x and y
@@ -130,8 +130,8 @@ public class AddChar {
         // output calculation
         double output;
         getWeights(nbNeurons);
-        output = neuron.neuron(neuronValue,weights);
-        out.println("output: " + output);
+        //output = neuron.neuron(neuronValue,weights);
+        //out.println("output: " + output);
 
         data.toJSON(this.charToAdd,inputs,neurons);
     }

@@ -21,7 +21,7 @@ public class RWDatas {
     private FileReader database;
     private String fileName = System.getenv("APPDATA") + "\\Char_Recognition\\data.json";
 
-    public void toJSON(String character, double[] inputs, Map<Double, double[]> map) {
+    public void toJSON(String character, Integer[] inputs, Map<Double, double[]> map) {
         verifyFile();
         Object datas =  fromJSON();
         try {
@@ -30,35 +30,9 @@ public class RWDatas {
             FileWriter dataFile = new FileWriter(fileName);
 
             Map<Character, Object> data = new HashMap<Character, Object>() {{
-                put(character.charAt(0), new Object[]{new HashMap<String, Object[]>() {
+                put(character.charAt(0), new Object[]{new HashMap<String, Integer[]>() {
                     {
-                        put("inputs", new Object[]{new HashMap<Integer, Double>() {
-                            {
-                                for (int i = 0; i < inputs.length; i++) {
-                                    put(i, inputs[i]);
-                                }
-                            }
-                        }});
-                        put("weights", new Object[]{new HashMap<String, Object[]>() {
-                            {
-                                put("neurons", new Object[]{new HashMap<Double, Object[]>() {
-                                    {
-                                        Iterator<Double> iter = map.keySet().iterator();
-                                        while (iter.hasNext()) {
-                                            double key = iter.next();
-                                            put(key, new Object[]{new HashMap<Integer, Double>() {
-                                                {
-                                                    double[] array = map.get(key);
-                                                    for (int i = 0; i < array.length; i++) {
-                                                        put(i,array[i]);
-                                                    }
-                                                }}
-                                            });
-                                        }
-                                    }}
-                                });
-                            }}
-                        });
+                        put("inputs", inputs);
                     }}
                 });
             }};
@@ -84,7 +58,7 @@ public class RWDatas {
             database = new FileReader(fileName);
             JSONDeserializer parser = new JSONDeserializer();
             Map<Character,Map<String,Map<Integer,Double>>> obj = new JSONDeserializer<Map<Character,Map<String,Map<Integer,Double>>>>().deserialize(database);
-            System.out.println(obj);
+            System.out.println(obj.get("0"));
             return obj;
         } catch (Exception e) {
             e.printStackTrace();

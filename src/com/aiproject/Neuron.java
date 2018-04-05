@@ -8,7 +8,7 @@ public class Neuron {
     private double e1, e2, e3;
     private double expectedOutput = 1;
 
-    public double neuron (double [] inputs, double [] weights){
+    public double neuron (Integer [] inputs, double [] weights){
         double result = 0;
         System.out.println(inputs.length + " | " + weights.length);
         int nb = inputs.length;
