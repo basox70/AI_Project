@@ -31,12 +31,8 @@ public class RWDatas {
 
             //for (String character : datas);
 
-            Map<Character, Object> data = new HashMap<Character, Object>() {{
-                put(character.charAt(0), new Object[]{new HashMap<String, List>() {
-                    {
-                        put("inputs", inputToString(inputs));
-                    }}
-                });
+            Map<Character, List> data = new HashMap<Character, List>() {{
+                put(character.charAt(0), inputToString(inputs));
             }};
             JSONSerializer json = new JSONSerializer();
             json.prettyPrint(true);
@@ -59,7 +55,7 @@ public class RWDatas {
         try {
             database = new FileReader(fileName);
             JSONDeserializer parser = new JSONDeserializer();
-            Map<Character,Map<String,String[]>> obj = new JSONDeserializer<Map<Character,Map<String,String[]>>>().deserialize(database);
+            Map<Character, List> obj = new JSONDeserializer<Map<Character, List>>().deserialize(database);
             System.out.println(obj);
             return obj;
         } catch (Exception e) {
