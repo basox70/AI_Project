@@ -12,9 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class RWDatas {
 
@@ -26,13 +24,17 @@ public class RWDatas {
         Object datas =  fromJSON();
         try {
             // TODO output weights in json
+            // see example of json in data.json
+
 
             FileWriter dataFile = new FileWriter(fileName);
 
+            //for (String character : datas);
+
             Map<Character, Object> data = new HashMap<Character, Object>() {{
-                put(character.charAt(0), new Object[]{new HashMap<String, Integer[]>() {
+                put(character.charAt(0), new Object[]{new HashMap<String, List>() {
                     {
-                        put("inputs", inputs);
+                        put("inputs", inputToString(inputs));
                     }}
                 });
             }};
@@ -52,13 +54,13 @@ public class RWDatas {
         return null;
     }
 
-    public Object fromJSON() {
+    public Map fromJSON() {
         verifyFile();
         try {
             database = new FileReader(fileName);
             JSONDeserializer parser = new JSONDeserializer();
-            Map<Character,Map<String,Map<Integer,Double>>> obj = new JSONDeserializer<Map<Character,Map<String,Map<Integer,Double>>>>().deserialize(database);
-            System.out.println(obj.get("0"));
+            Map<Character,Map<String,String[]>> obj = new JSONDeserializer<Map<Character,Map<String,String[]>>>().deserialize(database);
+            System.out.println(obj);
             return obj;
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,6 +82,15 @@ public class RWDatas {
                 //e1.printStackTrace();
             }
         }
+    }
+
+    private List inputToString(Integer[] inputs) {
+        List<String> strInputs = new ArrayList<String>();
+
+        for (int i : inputs){
+            strInputs.add(Integer.toString(i));
+        }
+        return strInputs;
     }
 
 }
