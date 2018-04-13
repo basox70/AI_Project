@@ -21,7 +21,7 @@ public class RWDatas {
 
     public void toJSON(String character, Integer[] inputs, Map<Double, double[]> map) {
         verifyFile();
-        Object datas =  fromJSON();
+        Map datas =  fromJSON();
         try {
             // TODO output weights in json
             // see example of json in data.json
@@ -29,7 +29,12 @@ public class RWDatas {
 
             FileWriter dataFile = new FileWriter(fileName);
 
-            //for (String character : datas);
+            System.out.println(datas.keySet());
+            for (Object key : datas.keySet()){
+                if (character.equals(key)) {
+                    System.out.println(key);
+                }
+            }
 
             Map<Character, List> data = new HashMap<Character, List>() {{
                 put(character.charAt(0), inputToString(inputs));
@@ -38,6 +43,8 @@ public class RWDatas {
             json.prettyPrint(true);
             dataFile.write(json.deepSerialize(data));
             dataFile.close();
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +63,8 @@ public class RWDatas {
             database = new FileReader(fileName);
             JSONDeserializer parser = new JSONDeserializer();
             Map<Character, List> obj = new JSONDeserializer<Map<Character, List>>().deserialize(database);
-            System.out.println(obj);
+            //System.out.println("F");
+            //System.out.println(obj);
             return obj;
         } catch (Exception e) {
             e.printStackTrace();
