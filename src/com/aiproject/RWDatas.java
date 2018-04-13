@@ -19,7 +19,7 @@ public class RWDatas {
     private FileReader database;
     private String fileName = System.getenv("APPDATA") + "\\Char_Recognition\\data.json";
 
-    public void toJSON(String character, Integer[] inputs, Map<Double, double[]> map) {
+    public void toJSON(String character, Integer[] inputs) {
         verifyFile();
         Map datas =  fromJSON();
         try {
@@ -37,7 +37,7 @@ public class RWDatas {
             }
 
             Map<Character, List> data = new HashMap<Character, List>() {{
-                put(character.charAt(0), inputToString(inputs));
+                put(character.charAt(0), inputToList(inputs));
             }};
             JSONSerializer json = new JSONSerializer();
             json.prettyPrint(true);
@@ -88,13 +88,25 @@ public class RWDatas {
         }
     }
 
-    private List inputToString(Integer[] inputs) {
-        List<String> strInputs = new ArrayList<String>();
-
+    private List inputToList(Integer[] inputs) {
+        List<String> strList = new ArrayList<String>();
+        String strInputs = new String();
         for (int i : inputs){
-            strInputs.add(Integer.toString(i));
+            strInputs += String.valueOf(i);
         }
+        strList.add(strInputs);
+
+        return strList;
+    }
+
+    private String inputToString(Integer[] inputs) {
+        String strInputs = new String();
+        for (int i : inputs){
+            strInputs += String.valueOf(i);
+        }
+
         return strInputs;
     }
 
 }
+
