@@ -133,7 +133,7 @@ public class AddChar {
         //output = neuron.neuron(neuronValue,weights);
         //out.println("output: " + output);
 
-        data.toJSON(this.charToAdd,inputs,neurons);
+        data.toJSON(this.charToAdd,inputs);
     }
 
 }
