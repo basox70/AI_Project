@@ -26,19 +26,46 @@ public class RWDatas {
             // TODO output weights in json
             // see example of json in data.json
 
-
             FileWriter dataFile = new FileWriter(fileName);
+            Map<Character, List> data = new HashMap<Character, List>();
 
             System.out.println(datas.keySet());
             for (Object key : datas.keySet()){
                 if (character.equals(key)) {
                     System.out.println(key);
+                    System.out.println(datas.get(key));
+                    List array = (List) datas.get(key);
+                    String newValue = inputToString(inputs);
+                    boolean addValue = true;
+                    for (Object value : array) {
+                        if (value.equals(newValue)){
+                            System.out.println("Value already exist");
+                            addValue = false;
+                        }
+                    }
+                    if (addValue) {
+                        array.add(inputToString(inputs));
+                    }
+                    data = new HashMap<Character, List>() {{
+                        put((Character) key,array);
+                    }};
+                } else {
+                    data = new HashMap<Character, List>() {{
+                        List array = (List) datas.get(key);
+                        put((Character) key,array);
+                    }};
                 }
             }
 
-            Map<Character, List> data = new HashMap<Character, List>() {{
+            if (!data.containsKey(character.charAt(0))) {
+                data = new HashMap<Character, List>() {{
+                    put(character.charAt(0), inputToList(inputs));
+                }};
+            }
+
+            /*data = new HashMap<Character, List>() {{
                 put(character.charAt(0), inputToList(inputs));
-            }};
+            }};*/
             JSONSerializer json = new JSONSerializer();
             json.prettyPrint(true);
             dataFile.write(json.deepSerialize(data));
