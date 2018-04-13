@@ -40,27 +40,7 @@ public class AddChar {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            for (int i = 0; i < nbNeurons; i++) {
-
-            }
-
-            neuronCalculation();
-            /*getWeights();
-            TestInput[0]=0.8;
-            TestInput[1]=0.2;
-
-            TestWeight[0]=0.3;
-            TestWeight[1]=0.8;
-            TestWeight[2]=0.2;
-
-            HiddenNeuron neuron = new HiddenNeuron();
-            neuron.neuron(TestInput,TestWeight);
-            neuron.neuron(inputs,weights);
-            System.out.println(neuron);*/
         }
-        /*System.out.println("Image : "+image);
-        System.out.println("Character : "+character + " | " +character.length());*/
     }
 
     private void getInputs(String image) throws IOException {
@@ -92,48 +72,8 @@ public class AddChar {
 
         out.println(img);
         this.nbPixels = nbPixels;
-    }
-
-    private void getWeights(int size) {
-        this.weights = new double[size+1];
-        for (int i = 0; i < size+1; i++) {
-            Random rand = new Random();
-            weights[i] = rand.nextDouble();
-        }
-    }
-
-    private void neuronCalculation() {
-        /*
-        * neurons = [ value, weights[] ]
-        * output = [ value, weights[] ]
-        * target value = 1
-        * Model:
-        * I*inputs  ----> N*neurons ----> 1*output
-        */
-        double n;
-
-        Neuron neuron = new Neuron();
-        double[] neuronValue = new double[nbNeurons];
-        for (int i = 0 ; i < nbNeurons ; i++) {
-            getWeights(nbPixels);
-            n = neuron.neuron(inputs,weights);
-            neuronValue[i] = n;
-            neurons.put(n, weights);
-            /*for (int y = 0; y < weights.length; y++) {
-                neurons.get(n).add(weights[y]);
-            }*/
-            out.println(neurons.size() + " | " + neurons.get(n));
-        }
 
         RWDatas data = new RWDatas();
-
-        // output calculation
-        double output;
-        getWeights(nbNeurons);
-        //output = neuron.neuron(neuronValue,weights);
-        //out.println("output: " + output);
-
         data.toJSON(this.charToAdd,inputs);
     }
-
 }

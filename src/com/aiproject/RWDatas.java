@@ -8,10 +8,7 @@ import org.json.simple.parser.JSONParser;*/
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class RWDatas {
@@ -29,39 +26,50 @@ public class RWDatas {
             FileWriter dataFile = new FileWriter(fileName);
             Map<Character, List> data = new HashMap<Character, List>();
 
-            System.out.println(datas.keySet());
-            for (Object key : datas.keySet()){
-                if (character.equals(key)) {
-                    System.out.println(key);
-                    System.out.println(datas.get(key));
-                    List array = (List) datas.get(key);
-                    String newValue = inputToString(inputs);
-                    boolean addValue = true;
-                    for (Object value : array) {
-                        if (value.equals(newValue)){
-                            System.out.println("Value already exist");
-                            addValue = false;
-                        }
-                    }
-                    if (addValue) {
-                        array.add(inputToString(inputs));
-                    }
-                    data = new HashMap<Character, List>() {{
-                        put((Character) key,array);
-                    }};
-                } else {
-                    data = new HashMap<Character, List>() {{
-                        List array = (List) datas.get(key);
-                        put((Character) key,array);
-                    }};
-                }
-            }
 
-            if (!data.containsKey(character.charAt(0))) {
+            if (datas != null) {
+                System.out.println("datas ok");
+                System.out.println(datas.keySet());
+
+                for (Object key : datas.keySet()){
+                    if (character.equals(key)) {
+                        System.out.println(key);
+                        System.out.println(datas.get(key));
+                        List array = (List) datas.get(key);
+                        String newValue = inputToString(inputs);
+                        boolean addValue = true;
+                        for (Object value : array) {
+                            if (value.equals(newValue)){
+                                System.out.println("Value already exist");
+                                addValue = false;
+                            }
+                        }
+                        if (addValue) {
+                            array.add(inputToString(inputs));
+                        }
+                        data = new HashMap<Character, List>() {{
+                            put((Character) key,array);
+                        }};
+                    } else {
+                        List array = (List) datas.get(key);
+                        data = new HashMap<Character, List>() {{
+                            put((Character) key,array);
+                        }};
+                    }
+                }
+
+            }else {
+                System.out.println("datas ko");
                 data = new HashMap<Character, List>() {{
                     put(character.charAt(0), inputToList(inputs));
                 }};
             }
+
+            /*if (!data.containsKey(character.charAt(0))) {
+                data = new HashMap<Character, List>() {{
+                    put(character.charAt(0), inputToList(inputs));
+                }};
+            }*/
 
             /*data = new HashMap<Character, List>() {{
                 put(character.charAt(0), inputToList(inputs));
@@ -88,11 +96,12 @@ public class RWDatas {
         verifyFile();
         try {
             database = new FileReader(fileName);
-            JSONDeserializer parser = new JSONDeserializer();
-            Map<Character, List> obj = new JSONDeserializer<Map<Character, List>>().deserialize(database);
-            //System.out.println("F");
-            //System.out.println(obj);
-            return obj;
+            BufferedReader br = new BufferedReader(database);
+            System.out.println(br.readLine());
+            if (br.readLine() != null) {
+                Map<Character, List> obj = new JSONDeserializer<Map<Character, List>>().deserialize(database);
+                return obj;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
