@@ -17,8 +17,7 @@ public class RWDatas {
 
     private FileReader database;
     private String fileName = System.getenv("APPDATA") + "\\Char_Recognition\\data.json";
-    private HashMap datasArray[] = new HashMap[26];
-    private int k = 0;
+    private boolean check = true;
 
     public void toJSON(String character, Integer[] inputs) {
         verifyFile();
@@ -39,7 +38,7 @@ public class RWDatas {
                 System.out.println("Nombre de caractères déjà indexés : "+datas.keySet().size());
 
                 int nbrOfIndexedChar = datas.keySet().size();
-                int check = 0;
+                int checkKey = 0;
 
                     for (Object key : datas.keySet()) {
                         if (character.equals(key)) {
@@ -61,46 +60,21 @@ public class RWDatas {
                                 put(key.toString().charAt(0), array);
                             }};
                         } else {
-                            check++;
+                            checkKey++;
                         }
                     }
 
                 //Si aucun des caractères déjà indexés ne correspond au caractère à indexer
-                if(check == nbrOfIndexedChar && datas.keySet().size()!=0){
-
+                if(checkKey == nbrOfIndexedChar && datas.keySet().size()!=0){
                     System.out.println("Le tableau ne contient pas encore la valeur à ajouter à la base");
-
-                    for (Object key : datas.keySet()) {
-
-                        System.out.println("keyset : "+datas.keySet());
-
-                        ArrayList<String> array = (ArrayList<String>) datas.get(key);
-                        System.out.println(key);
-                        System.out.println(array);
-
-                        data = new HashMap<Character, List>() {{
-                            put((Character) key.toString().charAt(0) , array);
-                        }};
-
-                        datasArray[k] = (HashMap) data;
-                        k++;
-                        System.out.println("k:"+k);
-
-                    }
-
-
-                    data = new HashMap<Character, List>() {{
-                        put(character.charAt(0), inputToList(inputs));
-                    }};
-
-                    datasArray[k]= (HashMap) data;
-                    k++;
+                    datas.put(character.charAt(0), inputToList(inputs));
                 }
 
                 if (datas.keySet().size()==0){
                     data = new HashMap<Character, List>() {{
                         put(character.charAt(0), inputToList(inputs));
                     }};
+                    check=false;
                 }
 
             }else {
@@ -108,33 +82,17 @@ public class RWDatas {
                 data = new HashMap<Character, List>() {{
                     put(character.charAt(0), inputToList(inputs));
                 }};
+                check=false;
             }
-/*
-            //TODO ecrase les valeurs
-            if (!datas.containsKey(character.charAt(0))) {
-                System.out.println("new value");
-                data = new HashMap<Character, List>() {{
-                    put(character.charAt(0), inputToList(inputs));
-                }};
-            }
-*/
-            /*data = new HashMap<Character, List>() {{
-                put(character.charAt(0), inputToList(inputs));
-            }};*/
+
             JSONSerializer json = new JSONSerializer();
             json.prettyPrint(true);
-
-            if(k>0){
-                for(int i=0;i<k;i++){
-                    dataFile.write(json.deepSerialize(datasArray[i]));
-                }
+            if(check) {
+                dataFile.write(json.deepSerialize(datas));
             }else{
                 dataFile.write(json.deepSerialize(data));
             }
             dataFile.close();
-
-            Map dat =  fromJSON();
-            System.out.println("Nouveau Fichier Data : " + dat);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,11 +104,11 @@ public class RWDatas {
         return null;
     }
 
-    public Map fromJSON() {
+    public HashMap fromJSON() {
         verifyFile();
         try {
             database = new FileReader(fileName);
-            Map<Character, List> obj = new JSONDeserializer<Map<Character, List>>().deserialize(database);
+            HashMap<Character, List> obj = new JSONDeserializer<HashMap<Character, List>>().deserialize(database);
             return obj;
         } catch (Exception e) {
             e.printStackTrace();
