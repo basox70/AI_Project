@@ -10,12 +10,14 @@ import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class RWDatas {
 
     private FileReader database;
     private String fileName = System.getenv("APPDATA") + "\\Char_Recognition\\data.json";
+    private HashMap datasArray [] = {};
 
     public void toJSON(String character, Integer[] inputs) {
         verifyFile();
@@ -31,33 +33,74 @@ public class RWDatas {
 
             if (datas != null) {
                 System.out.println("datas ok");
-                System.out.println(datas.keySet());
+                System.out.println("Tableau des caractères déjà indexés : "+datas.keySet());
+                System.out.println("Caractère à indexer : "+character);
+                System.out.println("Nombre de caractères déjà indexés : "+datas.keySet().size());
 
-                for (Object key : datas.keySet()){
-                    if (character.equals(key)) {
-                        System.out.println(key);
-                        System.out.println(datas.get(key));
-                        List array = (List) datas.get(key);
-                        String newValue = inputToString(inputs);
-                        boolean addValue = true;
-                        for (Object value : array) {
-                            if (value.equals(newValue)){
-                                System.out.println("Value already exist");
-                                addValue = false;
+                int nbrOfIndexedChar = datas.keySet().size();
+                int check = 0;
+
+                    for (Object key : datas.keySet()) {
+                        if (character.equals(key)) {
+                            System.out.println(key);
+                            System.out.println(datas.get(key));
+                            List array = (List) datas.get(key);
+                            String newValue = inputToString(inputs);
+                            boolean addValue = true;
+                            for (Object value : array) {
+                                if (value.equals(newValue)) {
+                                    System.out.println("Value already exist");
+                                    addValue = false;
+                                }
                             }
+                            if (addValue) {
+                                array.add(inputToString(inputs));
+                            }
+                            data = new HashMap<Character, List>() {{
+                                put(key.toString().charAt(0), array);
+                            }};
+                        } else {
+                            check++;
                         }
-                        if (addValue) {
-                            array.add(inputToString(inputs));
-                        }
-                        data = new HashMap<Character, List>() {{
-                            put( key.toString().charAt(0),array);
-                        }};
-                    } else {
-                        List array = (List) datas.get(key);
-                        data = new HashMap<Character, List>() {{
-                            put(key.toString().charAt(0),array);
-                        }};
                     }
+
+                //Si aucun des caractères déjà indexés ne correspond au caractère à indexer
+                if(check == nbrOfIndexedChar && datas.keySet().size()!=0){
+
+                        int k = 0;
+
+                    System.out.println("Le tableau ne contient pas encore la valeur à ajouter à la base");
+                    //Ajouter le traitement pour créer le nouveau caractère dans le fichier
+                    for (Object key : datas.keySet()) {
+
+                        ArrayList<String> array = (ArrayList<String>) datas.get(key);
+                        System.out.println(key);
+                        System.out.println(array);
+
+                        data = new HashMap<Character, List>() {{
+                            put((Character) key.toString().charAt(0) , Arrays.asList(array));
+                        }};
+
+                        if(k!=0) {
+                            datasArray[datasArray.length] = (HashMap) data;
+                        }else{
+                            datasArray[0] = (HashMap) data;
+                            k++;
+                        }
+
+                    }
+
+                    data = new HashMap<Character, List>() {{
+                        put(character.charAt(0), inputToList(inputs));
+                    }};
+
+                    datasArray[datasArray.length]= (HashMap) data;
+                }
+
+                if (datas.keySet().size()==0){
+                    data = new HashMap<Character, List>() {{
+                        put(character.charAt(0), inputToList(inputs));
+                    }};
                 }
 
             }else {
@@ -66,22 +109,32 @@ public class RWDatas {
                     put(character.charAt(0), inputToList(inputs));
                 }};
             }
-
-            //TODO ecrase les valeurs 
+/*
+            //TODO ecrase les valeurs
             if (!datas.containsKey(character.charAt(0))) {
                 System.out.println("new value");
                 data = new HashMap<Character, List>() {{
                     put(character.charAt(0), inputToList(inputs));
                 }};
             }
-
+*/
             /*data = new HashMap<Character, List>() {{
                 put(character.charAt(0), inputToList(inputs));
             }};*/
             JSONSerializer json = new JSONSerializer();
             json.prettyPrint(true);
-            dataFile.write(json.deepSerialize(data));
+
+            if(datasArray.length>0){
+                for(int i=0;i<datasArray.length;i++){
+                    dataFile.write(json.deepSerialize(datasArray[i]));
+                }
+            }else{
+                dataFile.write(json.deepSerialize(data));
+            }
             dataFile.close();
+
+            Map dat =  fromJSON();
+            System.out.println("Nouveau Fichier Data : " + dat);
         } catch (Exception e) {
             e.printStackTrace();
         }
