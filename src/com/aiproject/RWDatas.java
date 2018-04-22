@@ -17,7 +17,8 @@ public class RWDatas {
 
     private FileReader database;
     private String fileName = System.getenv("APPDATA") + "\\Char_Recognition\\data.json";
-    private HashMap datasArray [] = {};
+    private HashMap datasArray[] = new HashMap[26];
+    private int k = 0;
 
     public void toJSON(String character, Integer[] inputs) {
         verifyFile();
@@ -67,34 +68,33 @@ public class RWDatas {
                 //Si aucun des caractères déjà indexés ne correspond au caractère à indexer
                 if(check == nbrOfIndexedChar && datas.keySet().size()!=0){
 
-                        int k = 0;
-
                     System.out.println("Le tableau ne contient pas encore la valeur à ajouter à la base");
-                    //Ajouter le traitement pour créer le nouveau caractère dans le fichier
+
                     for (Object key : datas.keySet()) {
+
+                        System.out.println("keyset : "+datas.keySet());
 
                         ArrayList<String> array = (ArrayList<String>) datas.get(key);
                         System.out.println(key);
                         System.out.println(array);
 
                         data = new HashMap<Character, List>() {{
-                            put((Character) key.toString().charAt(0) , Arrays.asList(array));
+                            put((Character) key.toString().charAt(0) , array);
                         }};
 
-                        if(k!=0) {
-                            datasArray[datasArray.length] = (HashMap) data;
-                        }else{
-                            datasArray[0] = (HashMap) data;
-                            k++;
-                        }
+                        datasArray[k] = (HashMap) data;
+                        k++;
+                        System.out.println("k:"+k);
 
                     }
+
 
                     data = new HashMap<Character, List>() {{
                         put(character.charAt(0), inputToList(inputs));
                     }};
 
-                    datasArray[datasArray.length]= (HashMap) data;
+                    datasArray[k]= (HashMap) data;
+                    k++;
                 }
 
                 if (datas.keySet().size()==0){
@@ -124,8 +124,8 @@ public class RWDatas {
             JSONSerializer json = new JSONSerializer();
             json.prettyPrint(true);
 
-            if(datasArray.length>0){
-                for(int i=0;i<datasArray.length;i++){
+            if(k>0){
+                for(int i=0;i<k;i++){
                     dataFile.write(json.deepSerialize(datasArray[i]));
                 }
             }else{
