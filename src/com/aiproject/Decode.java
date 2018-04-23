@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import static java.lang.System.out;
 
@@ -13,15 +14,21 @@ public class Decode {
     public Integer [] inputs;
     public double [] weights;
     public int nbPixels;
+    private String output[];
 
     private HiddenNeuron neurons;
 
 
     public Decode(String image) {
         RWDatas data = new RWDatas();
-        data.fromJSON();
+        Map datas = data.fromJSON();
         System.out.println(image);
-
+        this.output = new String[datas.keySet().size()];
+        int i = 0;
+        for (Object key : datas.keySet()) {
+            this.output[i] = key.toString();
+            i++;
+        }
         try {
             getInputs(image);
 
