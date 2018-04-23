@@ -57,7 +57,7 @@ public class AddChar {
                 int red = (clr & 0x00ff0000) >> 16;
                 int green = (clr & 0x0000ff00) >> 8;
                 int blue = clr & 0x000000ff;
-                out.println("RGB = (" + red + "," + green + ","  + blue + ") | " + clr);
+                //out.println("RGB = (" + red + "," + green + ","  + blue + ") | " + clr);
                 if (red*green*blue > 350000) {
                     img = img + "0";
                     this.inputs[counter] = 0;

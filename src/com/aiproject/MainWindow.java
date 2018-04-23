@@ -7,6 +7,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 
 public class MainWindow extends JFrame {
 
@@ -89,10 +90,10 @@ public class MainWindow extends JFrame {
             }
         });
 
-        InputFileName.setEditable(false);
+        InputFileName.setEditable(true);
         InputFileName.setToolTipText("");
         InputFileName.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        InputFileName.setFocusable(false);
+        InputFileName.setFocusable(true);
 
         InputImage.setBackground(new java.awt.Color(255, 255, 255));
         InputImage.setPreferredSize(new java.awt.Dimension(110, 110));
@@ -172,10 +173,10 @@ public class MainWindow extends JFrame {
             }
         });
 
-        RecognitionFileName.setEditable(false);
+        RecognitionFileName.setEditable(true);
         RecognitionFileName.setToolTipText("");
         RecognitionFileName.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        RecognitionFileName.setFocusable(false);
+        RecognitionFileName.setFocusable(true);
 
         RecognitionImage.setBackground(new java.awt.Color(255, 255, 255));
         RecognitionImage.setPreferredSize(new java.awt.Dimension(110, 110));
@@ -404,6 +405,14 @@ public class MainWindow extends JFrame {
 
     private void Reset_DBActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        String fileName = System.getenv("APPDATA") + "\\Char_Recognition\\data.json";
+        try {
+            FileWriter dataFile = new FileWriter(fileName);
+            dataFile.write("");
+            dataFile.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
