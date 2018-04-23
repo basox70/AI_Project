@@ -6,12 +6,18 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;*/
 
 /*import flexjson.JSONDeserializer;*/
+
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
 
-import java.io.*;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RWDatas {
 
@@ -25,8 +31,6 @@ public class RWDatas {
         System.out.println("datas : " + datas);
 
         try {
-            // TODO output weights in json
-            // see example of json in data.json
 
             FileWriter dataFile = new FileWriter(fileName);
             Map<Character, List> data = new HashMap<Character, List>();
@@ -66,7 +70,8 @@ public class RWDatas {
 
                 //Si aucun des caractères déjà indexés ne correspond au caractère à indexer
                 if(checkKey == nbrOfIndexedChar && datas.keySet().size()!=0){
-                    System.out.println("Le tableau ne contient pas encore la valeur à ajouter à la base");
+                    //System.out.println("Le tableau ne contient pas encore la valeur à ajouter à la base");
+                    System.out.println("Array does not contain the value yet");
                     datas.put(character.charAt(0), inputToList(inputs));
                 }
 
